@@ -10,13 +10,13 @@ contract Agreement {
         Closed
     }
 
-    string employerId;
-    string employeeId;
-    address employerAddress;
-    address paymentAddress; // the wallet address used by the employer to accept payments
-    address currency; // the stable coin used for payment
-    AgreementStatus agreementStatus;
-    string contractType;
+    string public employerId;
+    string public employeeId;
+    address public employerAddress;
+    address public paymentAddress; // the wallet address used by the employer to accept payments
+    address public currency; // the stable coin used for payment
+    AgreementStatus public agreementStatus;
+    string public contractType;
 
     // constructor
     constructor(
@@ -89,5 +89,9 @@ contract Agreement {
         paymentAddress = _paymentAddress;
         agreementStatus = AgreementStatus.Active;
         return;
+    }
+
+    function withdrawFunds() public view onlyEmployer {
+        // this contract is a safety contract used by the employer to remove funds from the agreement contract
     }
 }

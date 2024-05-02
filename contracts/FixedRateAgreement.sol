@@ -10,7 +10,7 @@ contract FixedRateAgreement is Agreement {
     }
 
     uint256 fixedPayment;
-    PaymentStatus paymentStatus = PaymentStatus.Unpaid;
+    PaymentStatus public paymentStatus = PaymentStatus.Unpaid;
 
     constructor(
         string memory _employerId,
