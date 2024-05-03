@@ -44,6 +44,18 @@ import {
             )
             expect(await agreementFactory.getNumberOfFixedRateAgreements()).to.above(0)
         })
+
+        it("should deploy a pay as you go agreement successfully", async function (){
+            const {owner, otherAccount, agreementFactory} = await loadFixture(deployAgreementFactory);
+            await agreementFactory.createNewPayAsYouGoAgreement(
+                'employer id',
+                'employee id',
+                owner.address,
+                otherAccount.address,
+                100000
+            )
+            expect(await agreementFactory.getNumberOfPayAsYouGoAgreements()).to.above(0)
+        })
     })
   });
   
