@@ -3,6 +3,13 @@ pragma solidity ^0.8.24;
 
 import "./Agreement.sol";
 
+interface IERC20 {
+    function transfer(
+        address recipient,
+        uint256 amount
+    ) external returns (bool);
+}
+
 contract FixedRateAgreement is Agreement {
     enum PaymentStatus {
         Unpaid,
@@ -30,6 +37,14 @@ contract FixedRateAgreement is Agreement {
         fixedPayment = _fixedPayment;
     }
 
+    function transferTokens(address _to, uint256 _amount) internal {
+        // Load the USDT contract
+        IERC20 usdt = IERC20(currency);
+
+        // Transfer USDT to the given address
+        require(usdt.transfer(_to, _amount), "Token transfer failed");
+    }
+
     // sendPayment
     function sendPayment() public onlyEmployer {
         require(
@@ -40,7 +55,10 @@ contract FixedRateAgreement is Agreement {
             paymentStatus != PaymentStatus.Paid,
             "Payment has already been sent"
         );
+
         // send the money to the employees wallet address
+        transferTokens(paymentAddress, fixedPayment);
+
         paymentStatus = PaymentStatus.Paid;
         agreementStatus = AgreementStatus.Closed;
         return;
