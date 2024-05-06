@@ -1,8 +1,8 @@
 //SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.24;
 
-import "./FixedRateAgreement.sol";
 import "./PayAsYouGoAgreement.sol";
+import "./FixedRateAgreement.sol";
 
 import "hardhat/console.sol";
 

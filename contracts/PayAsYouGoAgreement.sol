@@ -3,13 +3,6 @@ pragma solidity ^0.8.24;
 
 import "./Agreement.sol";
 
-interface IERC20 {
-    function transfer(
-        address recipient,
-        uint256 amount
-    ) external returns (bool);
-}
-
 contract PayAsYouGoAgreement is Agreement {
     enum PaymentStatus {
         Unpaid,
@@ -47,10 +40,10 @@ contract PayAsYouGoAgreement is Agreement {
 
     function transferTokens(address _to, uint256 _amount) internal {
         // Load the USDT contract
-        IERC20 usdt = IERC20(currency);
+        IERC20 token = IERC20(currency);
 
         // Transfer USDT to the given address
-        require(usdt.transfer(_to, _amount), "Token transfer failed");
+        require(token.transfer(_to, _amount), "Token transfer failed");
     }
 
     // sendPayment

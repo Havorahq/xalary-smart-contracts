@@ -1,6 +1,13 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.24;
 
+interface IERC20 {
+    function transfer(
+        address recipient,
+        uint256 amount
+    ) external returns (bool);
+}
+
 contract Agreement {
     enum AgreementStatus {
         Pending,
