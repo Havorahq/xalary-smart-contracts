@@ -25,6 +25,8 @@ contract Agreement {
     AgreementStatus public agreementStatus;
     string public contractType;
 
+    event PaymentMade(address indexed agreementAddress);
+
     // constructor
     constructor(
         string memory _employerId,

@@ -15,6 +15,11 @@ contract PayAsYouGoAgreement is Agreement {
         // date
     }
 
+    event PayAsYouGoPaymentMade(
+        address indexed employeeAddress,
+        address indexed employerAddress
+    );
+
     Payment[] public payments;
 
     uint256 monthlyPayment;
@@ -54,8 +59,9 @@ contract PayAsYouGoAgreement is Agreement {
         );
         // send monthly payment to the employee's wallet address
         transferTokens(paymentAddress, monthlyPayment);
-
-        // store payment detaila and add payment event
+        emit PaymentMade(address(this));
+        emit PayAsYouGoPaymentMade(paymentAddress, employerAddress);
+        // store payment details and add payment event
         return;
     }
 

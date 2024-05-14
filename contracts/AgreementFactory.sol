@@ -10,13 +10,16 @@ contract AgreementFactory {
     FixedRateAgreement[] public fixedRateAgreements;
     PayAsYouGoAgreement[] public payAsYouGoAgreements;
 
+    event FixedRateAgreementDeployed(address indexed contractAddress);
+    event PayAsYoGoAgreementDeployed(address indexed contractAddress);
+
     function createNewFixedRateAgreement(
         string memory _employerId,
         string memory _employeeId,
         address _employerAddress,
         address _currency,
         uint256 _fixedPayment
-    ) public {
+    ) public returns (address) {
         FixedRateAgreement agreement = new FixedRateAgreement(
             _employerId,
             _employeeId,
@@ -25,7 +28,11 @@ contract AgreementFactory {
             _fixedPayment
         );
         fixedRateAgreements.push(agreement);
-        return;
+
+        console.log(address(agreement), "the agreement contract");
+
+        emit FixedRateAgreementDeployed(address(agreement));
+        return address(agreement);
     }
 
     function getNumberOfFixedRateAgreements() public view returns (uint256) {
@@ -48,6 +55,8 @@ contract AgreementFactory {
         );
 
         payAsYouGoAgreements.push(agreement);
+
+        emit PayAsYoGoAgreementDeployed(address(agreement));
     }
 
     function getNumberOfPayAsYouGoAgreements() public view returns (uint256) {
