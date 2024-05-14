@@ -12,6 +12,11 @@ contract FixedRateAgreement is Agreement {
     uint256 fixedPayment;
     PaymentStatus public paymentStatus = PaymentStatus.Unpaid;
 
+    event FixedPaymentMade(
+        address indexed employeeAddress,
+        address indexed employerAddress
+    );
+
     constructor(
         string memory _employerId,
         string memory _employeeId,
@@ -54,6 +59,8 @@ contract FixedRateAgreement is Agreement {
 
         paymentStatus = PaymentStatus.Paid;
         agreementStatus = AgreementStatus.Closed;
+        emit PaymentMade(address(this));
+        emit FixedPaymentMade(paymentAddress, employerAddress);
         return;
     }
 }
